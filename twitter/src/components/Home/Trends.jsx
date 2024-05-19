@@ -6,6 +6,7 @@ const MainContainer = styled.div`
     justify-content: center;
     flex-direction: column;
     width: 300px;
+    margin-left: 40px;
 `;
 
 const TrendsContainer = styled.div`

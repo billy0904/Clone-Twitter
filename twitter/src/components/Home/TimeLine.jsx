@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
+import Tweet from '../Tweet/Tweet';
 import { IoPersonCircleSharp } from "react-icons/io5";
 
 const MainContainer = styled.div`
@@ -79,10 +80,15 @@ const TimeLine = () => {
                 <SendContainer>
                 <SendButton>게시하기</SendButton>
                 </SendContainer>
-            {/* Tweet 컴포넌트 추가 */}
-            {/* <Tweet /> */}
-            {/* <Tweet /> */}
-            {/* <Tweet /> */}
+                <Tweet />
+                <Tweet />
+                <Tweet />
+                <Tweet />
+                <Tweet />
+                <Tweet />
+                <Tweet />
+                <Tweet />
+                <Tweet />
         </MainContainer>
     )
 }
