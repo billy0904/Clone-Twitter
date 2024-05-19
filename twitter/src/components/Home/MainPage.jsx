@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import NavigationBar from './NavigationBar';
 import TimeLine from './TimeLine';
+import Trends from './Trends';
 
 const MainContainer = styled.div`
     display: flex;
@@ -16,6 +17,7 @@ const MainPage = () => {
         <MainContainer>
             <NavigationBar />
             <TimeLine />
+            <Trends />
         </MainContainer>
     );
 };
