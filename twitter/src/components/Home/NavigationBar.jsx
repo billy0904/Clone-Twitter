@@ -19,7 +19,7 @@ const NavContainer = styled.div`
     flex-direction: column;
     width: 300px;
     height: 898px;
-    margin-left: 220px;
+    //margin-left: 10px;
 `;
 
 const LogoContainer = styled.div`
@@ -39,8 +39,8 @@ const NavButton = styled.div`
     
 `;
 
-const PostButton = styled.div`
-    background-color: #00ACEE;
+const PostButton = styled.button`
+    background-color: #1D9BF0;
     width: 240px;
     height: 52px;
     border-radius: 40px;
@@ -50,6 +50,8 @@ const PostButton = styled.div`
     font-weight: 600;
     line-height: 52px;
     margin-top: 10px;
+    border: none;
+    cursor: pointer;
 `;
 
 const IconContainer = styled.div`
