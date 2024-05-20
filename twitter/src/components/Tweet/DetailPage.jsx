@@ -75,9 +75,9 @@ const DetailPage = () => {
                     <IoPersonCircleSharp size="55" color='grey'/>
                     <InputField 
                         type="text" 
-                        onFocus={() => setHidePlaceholder(false)} // 입력 필드에 포커스되면 플레이스홀더를 숨기지 않음
+                        onFocus={() => setHidePlaceholder(false)}
                         onBlur={(e) => {
-                            if (!e.target.value) { // 입력 필드가 비어 있으면 플레이스홀더를 다시 표시
+                            if (!e.target.value) {
                                 setHidePlaceholder(true);
                             }
                         }}
