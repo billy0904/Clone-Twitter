@@ -8,9 +8,7 @@ const MainContainer = styled.div`
     display: flex;
     justify-content: center;
     flex-direction: row;
-    //margin-left: 300px;
     margin-right: 300px;
-    //width: 1000px;
     align-items: flex-start;
 `;
 
@@ -60,14 +58,12 @@ const UserInfo = styled.div`
 const UserName = styled.span`
     font-weight: 700;
     font-size: 22px;
-    //margin-top: 20px;
 `;
 
 const UserId = styled.span`
     color: #999999;
     font-weight: 500;
     font-size: 15px;
-    //margin-top:5px;
 `;
 
 const Bio = styled.p`

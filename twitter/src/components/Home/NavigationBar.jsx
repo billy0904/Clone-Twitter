@@ -19,7 +19,6 @@ const NavContainer = styled.div`
     flex-direction: column;
     width: 300px;
     height: 898px;
-    //margin-left: 10px;
 `;
 
 const LogoContainer = styled.div`

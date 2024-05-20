@@ -5,7 +5,7 @@ import { IoPersonCircleSharp } from "react-icons/io5";
 const MainContainer = styled.div`
     display: flex;
     justify-content: flex-start;
-    align-items: flex-start; /* 최상단에 정렬 */
+    align-items: flex-start;
     width: 100%;
     padding: 10px;
     border-bottom: 1px solid #cccccc;

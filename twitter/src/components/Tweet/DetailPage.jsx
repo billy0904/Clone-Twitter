@@ -8,9 +8,7 @@ const MainContainer = styled.div`
     display: flex;
     justify-content: center;
     flex-direction: row;
-    //margin-left: 300px;
     margin-right: 300px;
-    //width: 1000px;
 `;
 
 const WriteTweet = styled.div`

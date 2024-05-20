@@ -14,7 +14,6 @@ const TrendsContainer = styled.div`
     justify-content: center;
     flex-direction: column;
     border-radius: 20px;
-    //border: 1px solid #cccccc;
     width: 230px;
 `;
 
