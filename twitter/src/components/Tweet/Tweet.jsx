@@ -57,7 +57,7 @@ const Tweet = () => {
                 <UserInfo>
                     <UserName>이가빈</UserName>
                     <UserId>@billy0904</UserId>
-                    <PostTime>7시간</PostTime>
+                    <PostTime> · 7시간</PostTime>
                 </UserInfo>
                 <Content>어쩌구저쩌구</Content>
             </TweetContainer>
