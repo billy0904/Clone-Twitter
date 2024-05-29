@@ -121,6 +121,7 @@ const ProfilePage = () => {
                         <Div>팔로워</Div>
                     </FollowContainer>
                 </UserInfo>
+                {/* 사용자가 쓴 트윗들로 정리 */}
                 <Tweet />
                 <Tweet />
                 <Tweet />

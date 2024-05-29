@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Tweet from '../Tweet/Tweet';
 import { IoPersonCircleSharp } from "react-icons/io5";
+import { SendTweet } from '../../API/post';
+import { GetTweetData } from '../../API/tweet';
 
 const MainContainer = styled.div`
     display: flex;
@@ -70,30 +72,31 @@ const TimeLine = () => {
     const [tweets, setTweets] = useState([]);
     const [newTweet, setNewTweet] = useState('');
     const [hidePlaceholder, setHidePlaceholder] = useState(true);
+    const [tweetData, setTweetData] = useState(null);
 
-    useEffect(() => {
-        const storedTweets = localStorage.getItem('tweets');
-        if (storedTweets) {
-            setTweets(JSON.parse(storedTweets));
-        }
-    }, []);
-
-    const handleSendTweet = () => {
-        if (newTweet.trim()) {
-            const currentTime = new Date().toLocaleString();
-            const updatedTweets = [...tweets, { content: newTweet, id: Date.now(), time: currentTime }];
-            setTweets(updatedTweets);
-            localStorage.setItem('tweets', JSON.stringify(updatedTweets));
-            setNewTweet('');
-            setHidePlaceholder(true);
-        }
+    const handleSendTweet = (e) => {
+        e.preventDefault();
+        const request = {
+            accountId: "1",
+            title: "제목1",
+            content: newTweet,
+        };
+        SendTweet(request);
     };
 
     const handleDeleteTweet = (id) => {
         const updatedTweets = tweets.filter(tweet => tweet.id !== id);
         setTweets(updatedTweets);
-        localStorage.setItem('tweets', JSON.stringify(updatedTweets));
     };
+
+    useEffect(() => {
+        const getTweet = async () => {
+            const data = await GetTweetData();
+            setTweetData(data);
+        };
+
+        getTweet();
+    }, []);
 
     return (
         <MainContainer>
@@ -103,7 +106,7 @@ const TimeLine = () => {
                     type="text" 
                     value={newTweet}
                     onChange={(e) => setNewTweet(e.target.value)}
-                    onFocus={() => setHidePlaceholder(false)} 
+                    onFocus={(e) => setHidePlaceholder(false)}
                     onBlur={(e) => {
                         if (!e.target.value) {
                             setHidePlaceholder(true);
@@ -118,10 +121,11 @@ const TimeLine = () => {
             <TimeLineContainer>
                 {tweets.map(tweet => (
                     <Tweet 
-                        key={tweet.id} 
-                        content={tweet.content} 
-                        time={tweet.time} 
-                        onDelete={() => handleDeleteTweet(tweet.id)} 
+                        id={tweetData.postId} 
+                        name={tweetData.writerName}
+                        time={tweetData.CreatedDate}
+                        content={tweetData.content} 
+                        onDelete={() => handleDeleteTweet(tweetData.postId)} 
                     />
                 ))}
             </TimeLineContainer>

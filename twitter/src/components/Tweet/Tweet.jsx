@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { IoPersonCircleSharp } from "react-icons/io5";
+import { Link } from 'react-router-dom';
+import { DeleteTweetData } from '../../API/tweet';
 
-const MainContainer = styled.div`
+const MainContainer = styled(Link)`
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
     width: 100%;
     padding: 10px;
     border-bottom: 1px solid #ccc;
+    text-decoration: none;
+    color: inherit;
 `;
 
 const ProfileImage = styled.div`
@@ -109,16 +113,21 @@ const ModalButton = styled.button`
     }
 `;
 
-const Tweet = ({ content, time, onDelete }) => {
+const Tweet = ({ id, name, content, time, accountId, onDelete }) => {
     const [showModal, setShowModal] = useState(false);
 
     const handleDeleteClick = () => {
         setShowModal(true);
     };
 
-    const handleConfirmDelete = () => {
+    const handleConfirmDelete = async () => {
         setShowModal(false);
-        onDelete(); // 트윗 삭제 함수 호출
+        const result = await DeleteTweetData(id, accountId);
+        if (result) {
+            onDelete();
+        } else {
+            console.error('트윗 삭제 실패');
+        }
     };
 
     const handleCancelDelete = () => {
@@ -127,14 +136,14 @@ const Tweet = ({ content, time, onDelete }) => {
 
     return (
         <>
-            <MainContainer>
+            <MainContainer to={`/detail/${id}`}>
                 <ProfileImage><IoPersonCircleSharp size="55" color='grey'/></ProfileImage>
                 <TweetContainer>
                     <UserInfo>
-                        <UserName>이가빈</UserName>
+                        <UserName>{name}</UserName>
                         <UserId>@billy0904</UserId>
                         <PostTime>{time}</PostTime>
-                        <DeleteButton onClick={handleDeleteClick}>삭제</DeleteButton>
+                        <DeleteButton onClick={(e) => { e.preventDefault(); handleDeleteClick(); }}>삭제</DeleteButton>
                     </UserInfo>
                     <Content>{content}</Content>
                 </TweetContainer>

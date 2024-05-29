@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import TweetDetail from './TweetDetail';
 import NavigationBar from '../Home/NavigationBar';
 import { IoPersonCircleSharp } from "react-icons/io5";
+import { GetTweetDetailData } from '../../API/tweet';
 
 const MainContainer = styled.div`
     display: flex;
@@ -62,30 +63,30 @@ const SendButton = styled.button`
 `;
 
 const DetailPage = () => {
-    const [hidePlaceholder, setHidePlaceholder] = useState(true);
+    const [tweetData, setTweetData] = useState(null);
+
+    useEffect(() => {
+        const getTweet = async () => {
+            const data = await GetTweetDetailData();
+            setTweetData(data);
+        };
+        getTweet();
+    }, []);
 
     return (
         <MainContainer>
             <NavigationBar />
             <TweetContainer>
-                <TweetDetail/>
+                <TweetDetail content={tweetData.content} time={tweetData.CreatedDate} name={tweetData.writerName} />
                 <WriteTweet>
                     <IoPersonCircleSharp size="55" color='grey'/>
-                    <InputField 
-                        type="text" 
-                        onFocus={() => setHidePlaceholder(false)}
-                        onBlur={(e) => {
-                            if (!e.target.value) {
-                                setHidePlaceholder(true);
-                            }
-                        }}
-                    />
-                    <Placeholder hide={!hidePlaceholder}>답글 게시하기</Placeholder>
+                    <InputField />
+                    <Placeholder hide={true}>답글 게시하기</Placeholder>
                     <SendButton>답글</SendButton>
                 </WriteTweet>
             </TweetContainer>
         </MainContainer>
-    )
-}
+    );
+};
 
 export default DetailPage;

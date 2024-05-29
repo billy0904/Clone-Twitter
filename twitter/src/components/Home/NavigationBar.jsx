@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import { BsTwitterX } from "react-icons/bs";
 import { GoHome } from "react-icons/go";
 import { GoHomeFill } from "react-icons/go";
@@ -35,6 +36,7 @@ const NavButton = styled.div`
     font-size: 20px;
     margin-top: 5px;
     margin-bottom: 5px;
+    cursor: pointer;
     
 `;
 
@@ -62,10 +64,20 @@ const UserInfoContainer = styled.div`
 `;
 
 const NavigationBar = () => {
+    const navigate = useNavigate();
+
+    const goToHome = () => {
+        navigate('/');
+    };
+
+    const goToProfile = () => {
+        navigate('/profile/1');
+    };
+
     return(
         <NavContainer>
             <LogoContainer><BsTwitterX size="30" /></LogoContainer>
-            <NavButton>
+            <NavButton onClick={goToHome}>
                 <IconContainer><GoHome size="28"/></IconContainer>
                 홈</NavButton>
             <NavButton>
@@ -92,9 +104,10 @@ const NavigationBar = () => {
             <NavButton>
                 <IconContainer><BsTwitterX size="28" /></IconContainer>
                 Premium</NavButton>
-            <NavButton>
+            <NavButton onClick={goToProfile}>
                 <IconContainer><BsPerson size="28" /></IconContainer>
-                프로필</NavButton>
+                프로필
+            </NavButton>
             <NavButton>
                 <IconContainer><CgMoreO size="28" /></IconContainer>
                 더보기</NavButton>

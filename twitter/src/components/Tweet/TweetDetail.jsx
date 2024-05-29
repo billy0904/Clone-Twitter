@@ -54,21 +54,23 @@ const Content = styled.p`
     margin-top: 15px;
 `;
 
-const TweetDetail = () => {
+const TweetDetail = ({ content, time, name }) => {
     return (
         <MainContainer>
             <ProfileImage><IoPersonCircleSharp size="55" color='grey'/></ProfileImage>
             <TweetContainer>
                 <UserInfo>
-                    <UserName>이가빈</UserName>
-                    <UserId>@billy0904</UserId>
-                </UserInfo>
-                <Content>어쩌구저쩌구 생물학 오늘 출첵 왜 안 하지</Content>
-                <Translate>번역하기</Translate>
-                <PostTime>오후 13:18 · 5월 20일, 2024</PostTime>
-            </TweetContainer>
-        </MainContainer>
-    )
-}
+                    <UserName>{name}</UserName>
+                    <UserId>
+                    @billy0904
+                </UserId>
+            </UserInfo>
+            <Content>{content}</Content>
+            <Translate>번역하기</Translate>
+            <PostTime>{time}</PostTime>
+        </TweetContainer>
+    </MainContainer>
+);
+};
 
 export default TweetDetail;
