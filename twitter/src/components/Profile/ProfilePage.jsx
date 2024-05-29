@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import NavigationBar from '../Home/NavigationBar';
 import Tweet from '../Tweet/Tweet';
 import { SlCalender } from "react-icons/sl";
+import { useParams } from 'react-router-dom';
+import { getAccountInfo } from '../../API/user';
+import { getAccountTweets } from '../../API/user';
 
 const MainContainer = styled.div`
     display: flex;
@@ -98,6 +101,43 @@ const Div = styled.span`
 `;
 
 const ProfilePage = () => {
+    const { id } = useParams();
+    const [tweets, setTweets] = useState([]);
+    const [accountInfo, setAccountInfo] = useState(null);
+    const [accountTweets, setAccountTweets] = useState([]);
+
+    const handleDeleteTweet = (id) => {
+        const updatedTweets = tweets.filter(tweet => tweet.id !== id);
+        setTweets(updatedTweets);
+    };
+
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const userData = await getAccountInfo(id);
+                setAccountInfo(userData);
+            } catch (error) {
+                console.error("Error fetching user data:", error);
+            }
+        };
+
+        const fetchUserTweets = async () => {
+            try {
+                const tweetsData = await getAccountTweets(id);
+                setAccountTweets(tweetsData);
+            } catch (error) {
+                console.error("Error fetching user tweets:", error);
+            }
+        };
+
+        fetchUserData();
+        fetchUserTweets();
+    }, [id]);
+
+    if (!accountInfo) {
+        return <div>Loading...</div>;
+    }
+
     return (
         <MainContainer>
             <NavigationBar />
@@ -107,7 +147,7 @@ const ProfilePage = () => {
                     <ProfileImg></ProfileImg>
                 </MyImage>
                 <UserInfo>
-                    <UserName>이가빈</UserName>
+                    <UserName>{accountInfo.nickname}</UserName>
                     <UserId>@billy0904</UserId>
                     <Bio>망고시루 맛있겠다</Bio>
                     <RowContainer>
@@ -121,10 +161,16 @@ const ProfilePage = () => {
                         <Div>팔로워</Div>
                     </FollowContainer>
                 </UserInfo>
-                {/* 사용자가 쓴 트윗들로 정리 */}
-                <Tweet />
-                <Tweet />
-                <Tweet />
+                {tweets.map(
+                    <Tweet
+                        key={accountTweets.postId}
+                        id={accountTweets.postId}
+                        name={accountTweets.nickname}
+                        time={accountTweets.CreatedDate}
+                        content={accountTweets.content}
+                        onDelete={() => handleDeleteTweet(accountTweets.postId)}
+                    />
+                )}
             </ProfileContainer>
         </MainContainer>
     )

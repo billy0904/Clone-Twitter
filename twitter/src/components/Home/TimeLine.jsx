@@ -119,15 +119,16 @@ const TimeLine = () => {
                 </SendContainer>
             </WriteTweet>
             <TimeLineContainer>
-                {tweets.map(tweet => (
+                {tweets.map(
                     <Tweet 
+                        key={tweetData.postId}
                         id={tweetData.postId} 
                         name={tweetData.writerName}
                         time={tweetData.CreatedDate}
                         content={tweetData.content} 
                         onDelete={() => handleDeleteTweet(tweetData.postId)} 
                     />
-                ))}
+                )}
             </TimeLineContainer>
         </MainContainer>
     );
