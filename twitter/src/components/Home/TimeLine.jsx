@@ -121,7 +121,7 @@ const TimeLine = () => {
             <TimeLineContainer>
                 {tweets.map(
                     <Tweet 
-                        key={tweetData.postId}
+                        //key={tweetData.postId}
                         id={tweetData.postId} 
                         name={tweetData.writerName}
                         time={tweetData.CreatedDate}
