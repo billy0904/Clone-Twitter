@@ -1,20 +1,29 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Tweet from '../Tweet/Tweet';
 import { IoPersonCircleSharp } from "react-icons/io5";
 
 const MainContainer = styled.div`
     display: flex;
-    justify-content: center;
     flex-direction: column;
+    justify-content: flex-start;
+`;
+
+const TimeLineContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
     width: 600px;
 `;
 
 const WriteTweet = styled.div`
     display: flex;
-    align-items: flex-start;
+    flex-direction: row;
     padding: 10px;
     position: relative;
+    width: 600px;
+    height: 100px;
+    border-bottom: 1px solid #cccccc;
 `;
 
 const Placeholder = styled.span`
@@ -41,9 +50,7 @@ const InputField = styled.input`
 
 const SendContainer = styled.div`
     display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    border-bottom: 1px solid #cccccc;
+    align-items: flex-end;
 `;
 
 const SendButton = styled.button`
@@ -60,7 +67,33 @@ const SendButton = styled.button`
 `;
 
 const TimeLine = () => {
-    const [hidePlaceholder, setHidePlaceholder] = useState(true); // 플레이스홀더를 숨기기 위한 상태
+    const [tweets, setTweets] = useState([]);
+    const [newTweet, setNewTweet] = useState('');
+    const [hidePlaceholder, setHidePlaceholder] = useState(true);
+
+    useEffect(() => {
+        const storedTweets = localStorage.getItem('tweets');
+        if (storedTweets) {
+            setTweets(JSON.parse(storedTweets));
+        }
+    }, []);
+
+    const handleSendTweet = () => {
+        if (newTweet.trim()) {
+            const currentTime = new Date().toLocaleString();
+            const updatedTweets = [...tweets, { content: newTweet, id: Date.now(), time: currentTime }];
+            setTweets(updatedTweets);
+            localStorage.setItem('tweets', JSON.stringify(updatedTweets));
+            setNewTweet('');
+            setHidePlaceholder(true);
+        }
+    };
+
+    const handleDeleteTweet = (id) => {
+        const updatedTweets = tweets.filter(tweet => tweet.id !== id);
+        setTweets(updatedTweets);
+        localStorage.setItem('tweets', JSON.stringify(updatedTweets));
+    };
 
     return (
         <MainContainer>
@@ -68,29 +101,32 @@ const TimeLine = () => {
                 <IoPersonCircleSharp size="55" color='grey'/>
                 <InputField 
                     type="text" 
-                    onFocus={() => setHidePlaceholder(false)} // 입력 필드에 포커스되면 플레이스홀더를 숨기지 않음
+                    value={newTweet}
+                    onChange={(e) => setNewTweet(e.target.value)}
+                    onFocus={() => setHidePlaceholder(false)} 
                     onBlur={(e) => {
-                        if (!e.target.value) { // 입력 필드가 비어 있으면 플레이스홀더를 다시 표시
+                        if (!e.target.value) {
                             setHidePlaceholder(true);
                         }
                     }}
                 />
                 <Placeholder hide={!hidePlaceholder}>무슨 일이 일어나고 있나요?</Placeholder>
-            </WriteTweet>
                 <SendContainer>
-                <SendButton>게시하기</SendButton>
+                    <SendButton onClick={handleSendTweet}>게시하기</SendButton>
                 </SendContainer>
-                <Tweet />
-                <Tweet />
-                <Tweet />
-                <Tweet />
-                <Tweet />
-                <Tweet />
-                <Tweet />
-                <Tweet />
-                <Tweet />
+            </WriteTweet>
+            <TimeLineContainer>
+                {tweets.map(tweet => (
+                    <Tweet 
+                        key={tweet.id} 
+                        content={tweet.content} 
+                        time={tweet.time} 
+                        onDelete={() => handleDeleteTweet(tweet.id)} 
+                    />
+                ))}
+            </TimeLineContainer>
         </MainContainer>
-    )
-}
+    );
+};
 
 export default TimeLine;

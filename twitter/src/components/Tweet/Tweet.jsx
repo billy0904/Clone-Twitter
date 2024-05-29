@@ -109,7 +109,7 @@ const ModalButton = styled.button`
     }
 `;
 
-const Tweet = () => {
+const Tweet = ({ content, time, onDelete }) => {
     const [showModal, setShowModal] = useState(false);
 
     const handleDeleteClick = () => {
@@ -118,7 +118,7 @@ const Tweet = () => {
 
     const handleConfirmDelete = () => {
         setShowModal(false);
-        console.log('Tweet deleted');
+        onDelete(); // 트윗 삭제 함수 호출
     };
 
     const handleCancelDelete = () => {
@@ -133,10 +133,10 @@ const Tweet = () => {
                     <UserInfo>
                         <UserName>이가빈</UserName>
                         <UserId>@billy0904</UserId>
-                        <PostTime> · 7시간</PostTime>
+                        <PostTime>{time}</PostTime>
                         <DeleteButton onClick={handleDeleteClick}>삭제</DeleteButton>
                     </UserInfo>
-                    <Content>어쩌구저쩌구</Content>
+                    <Content>{content}</Content>
                 </TweetContainer>
             </MainContainer>
             {showModal && (
