@@ -72,7 +72,7 @@ const TimeLine = () => {
     const [tweets, setTweets] = useState([]);
     const [newTweet, setNewTweet] = useState('');
     const [hidePlaceholder, setHidePlaceholder] = useState(true);
-    const [loading, setLoading] = useState(true);
+    //const [loading, setLoading] = useState(true);
 
     const getTweet = async () => {
         const data = await GetTweetData();
@@ -111,9 +111,9 @@ const TimeLine = () => {
         setTweets(updatedTweets);
     };
 
-    if (loading) {
-        return <div>Loading...</div>;
-    }
+    // if (loading) {
+    //     return <div>Loading...</div>;
+    // }
 
     return (
         <MainContainer>
