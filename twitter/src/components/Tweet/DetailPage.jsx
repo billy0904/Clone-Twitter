@@ -78,6 +78,10 @@ const DetailPage = () => {
         getTweet();
     }, [id]);
 
+    if (!tweet) {
+        return <div>Loading...</div>;
+    }
+
     return (
         <MainContainer>
             <NavigationBar />
