@@ -3,7 +3,7 @@ import client from '.';
 export const SendTweet = async (request) => {
     try {
         const response = await client.post('/post', request);
-        console.log('Response from server:', response); // 디버깅용 로그
+        console.log('Response from server:', response);
         return response;
     } catch (error) {
         console.error('Error sending tweet:', error);

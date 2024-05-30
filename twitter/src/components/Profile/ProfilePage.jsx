@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import NavigationBar from '../Home/NavigationBar';
 import Tweet from '../Tweet/Tweet';
+import Trends from '../Home/Trends';
 import { SlCalender } from "react-icons/sl";
 import { useParams } from 'react-router-dom';
 import { getAccountInfo } from '../../API/user';
@@ -11,7 +12,6 @@ const MainContainer = styled.div`
     display: flex;
     justify-content: center;
     flex-direction: row;
-    margin-right: 300px;
     align-items: flex-start;
 `;
 
@@ -20,6 +20,7 @@ const ProfileContainer = styled.div`
     justify-content: center;
     flex-direction: column;
     align-items: flex-start;
+    width: 600px;
 `;
 
 const RowContainer = styled.div`
@@ -30,7 +31,7 @@ const RowContainer = styled.div`
 `;
 
 const HeaderImg = styled.img`
-    width: 550px;
+    width: 600px;
     height: 180px;
     background-color: #999999;
 `;
@@ -40,7 +41,7 @@ const ProfileImg = styled.img`
     height: 130px;
     position: absolute;
     margin-top: 100px;
-    margin-left: -530px;
+    margin-left: -560px;
     border-radius: 50%;
     border: 2px solid #1D9BF0;
     background-color: black;
@@ -53,7 +54,7 @@ const MyImage = styled.div`
 const UserInfo = styled.div`
     display: flex;
     flex-direction: column;
-    margin-left: 25px;
+    margin-left: 45px;
     margin-top: 70px;
 `;
 
@@ -101,7 +102,6 @@ const Div = styled.span`
 
 const ProfilePage = () => {
     const { id } = useParams();
-    //const [tweets, setTweets] = useState([]);
     const [accountInfo, setAccountInfo] = useState(null);
     const [accountTweets, setAccountTweets] = useState([]);
 
@@ -171,6 +171,7 @@ const ProfilePage = () => {
                     />
                 ))}
             </ProfileContainer>
+            <Trends />
         </MainContainer>
     );
 };

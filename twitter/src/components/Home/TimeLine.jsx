@@ -21,7 +21,6 @@ const TimeLineContainer = styled.div`
 const WriteTweet = styled.div`
     display: flex;
     flex-direction: row;
-    padding: 10px;
     position: relative;
     width: 600px;
     height: 100px;
@@ -72,7 +71,6 @@ const TimeLine = () => {
     const [tweets, setTweets] = useState([]);
     const [newTweet, setNewTweet] = useState('');
     const [hidePlaceholder, setHidePlaceholder] = useState(true);
-    //const [loading, setLoading] = useState(true);
 
     const getTweet = async () => {
         const data = await GetTweetData();
@@ -80,7 +78,6 @@ const TimeLine = () => {
         if (data) {
             setTweets(Array.isArray(data.posts) ? data.posts : []);
         }
-        //setLoading(false);
     };
 
     useEffect(() => {
@@ -110,10 +107,6 @@ const TimeLine = () => {
         const updatedTweets = tweets.filter(tweet => tweet.postId !== id);
         setTweets(updatedTweets);
     };
-
-    // if (loading) {
-    //     return <div>Loading...</div>;
-    // }
 
     return (
         <MainContainer>

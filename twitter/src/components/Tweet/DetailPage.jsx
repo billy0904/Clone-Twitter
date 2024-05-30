@@ -3,14 +3,14 @@ import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import TweetDetail from './TweetDetail';
 import NavigationBar from '../Home/NavigationBar';
+import Trends from '../Home/Trends';
 import { IoPersonCircleSharp } from "react-icons/io5";
 import { GetTweetDetailData } from '../../API/tweet';
 
 const MainContainer = styled.div`
     display: flex;
-    justify-content: center;
     flex-direction: row;
-    margin-right: 300px;
+    justify-content: center;
 `;
 
 const WriteTweet = styled.div`
@@ -49,6 +49,7 @@ const TweetContainer = styled.div`
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    width: 600px;
 `;
 
 const SendButton = styled.button`
@@ -94,6 +95,7 @@ const DetailPage = () => {
                     <SendButton>답글</SendButton>
                 </WriteTweet>
             </TweetContainer>
+            <Trends />
         </MainContainer>
     );
 };
