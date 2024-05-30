@@ -124,7 +124,7 @@ const Tweet = ({ id, name, content, time, accountId, onDelete }) => {
         setShowModal(false);
         const result = await DeleteTweetData(id, accountId);
         if (result) {
-            onDelete();
+            onDelete(id);
         } else {
             console.error('트윗 삭제 실패');
         }
@@ -136,7 +136,7 @@ const Tweet = ({ id, name, content, time, accountId, onDelete }) => {
 
     return (
         <>
-            <MainContainer to={`/detail/${id}`}>
+            <MainContainer to={`/post/${id}`}>
                 <ProfileImage><IoPersonCircleSharp size="55" color='grey'/></ProfileImage>
                 <TweetContainer>
                     <UserInfo>
@@ -151,7 +151,7 @@ const Tweet = ({ id, name, content, time, accountId, onDelete }) => {
             {showModal && (
                 <ModalBackground>
                     <ModalContainer>
-                        <ModalTitle>게시을(를)삭제할까요?</ModalTitle>
+                        <ModalTitle>게시을(를) 삭제할까요?</ModalTitle>
                         <ModalText>이 동작은 취소할 수 없으며 내 프로필, 나를 팔로우하는 계정의 타임라인, 그리고 검색 결과에서 삭제됩니다.</ModalText>
                         <ButtonContainer>
                             <ModalButton confirm onClick={handleConfirmDelete}>삭제하기</ModalButton>

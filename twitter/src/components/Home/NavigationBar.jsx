@@ -71,7 +71,7 @@ const NavigationBar = () => {
     };
 
     const goToProfile = () => {
-        navigate('/profile/1');
+        navigate('/account/1');
     };
 
     return(

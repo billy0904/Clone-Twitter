@@ -13,12 +13,14 @@ export const GetTweetData = async () => {
 export const GetTweetDetailData = async (post_id) => {
     try {
         const response = await client.get(`/post/${post_id}`);
+        console.log('API Response:', response.data);
         return response.data;
     } catch (error) {
-        console.error(error);
+        console.error('API Error:', error);
         return null;
     }
 };
+
 
 // 이건 사용자 기능 구현한 다음에 완성하기
 // export const GetMyTweetData = async () => {
@@ -33,7 +35,7 @@ export const GetTweetDetailData = async (post_id) => {
 
 export const DeleteTweetData = async (post_id, account_id) => {
     try {
-        const response = await client.delete(`/post${post_id}?accountId=${account_id}`);
+        const response = await client.delete(`/post/${post_id}?accountId=${account_id}`);
         return response.data;
     } catch (error) {
         console.error(error);

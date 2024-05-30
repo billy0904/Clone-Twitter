@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { useParams } from 'react-router-dom';
 import TweetDetail from './TweetDetail';
 import NavigationBar from '../Home/NavigationBar';
 import { IoPersonCircleSharp } from "react-icons/io5";
@@ -63,21 +64,25 @@ const SendButton = styled.button`
 `;
 
 const DetailPage = () => {
-    const [tweetData, setTweetData] = useState(null);
+    const { id } = useParams();
+    const [tweet, setTweet] = useState(null);
 
     useEffect(() => {
         const getTweet = async () => {
-            const data = await GetTweetDetailData();
-            setTweetData(data);
+            if (id) {
+                const data = await GetTweetDetailData(id);
+                console.log('Fetched Tweet Data:', data);
+                setTweet(data);
+            }
         };
         getTweet();
-    }, []);
+    }, [id]);
 
     return (
         <MainContainer>
             <NavigationBar />
             <TweetContainer>
-                <TweetDetail content={tweetData.content} time={tweetData.CreatedDate} name={tweetData.writerName} />
+                <TweetDetail content={tweet.content} time={tweet.createdDate} name={tweet.writerName} />
                 <WriteTweet>
                     <IoPersonCircleSharp size="55" color='grey'/>
                     <InputField />

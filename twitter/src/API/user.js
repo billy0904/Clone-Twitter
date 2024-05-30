@@ -48,7 +48,7 @@ export const getAccountInfo = async (account_id) => {
 // 사용자가 작성한 트윗 가져오기
 export const getAccountTweets = async (account_id) => {
     try {
-        const response = await client.get(`/account/${account_id}/tweets`);
+        const response = await client.get(`/account/${account_id}/tweets`); // 404: 백엔드 미구현
         return response.data;
     } catch (error) {
         console.error("사용자 작성 트윗 get 실패", error);

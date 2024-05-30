@@ -29,7 +29,6 @@ const RowContainer = styled.div`
     align-items: center;
 `;
 
-
 const HeaderImg = styled.img`
     width: 550px;
     height: 180px;
@@ -102,13 +101,13 @@ const Div = styled.span`
 
 const ProfilePage = () => {
     const { id } = useParams();
-    const [tweets, setTweets] = useState([]);
+    //const [tweets, setTweets] = useState([]);
     const [accountInfo, setAccountInfo] = useState(null);
     const [accountTweets, setAccountTweets] = useState([]);
 
-    const handleDeleteTweet = (id) => {
-        const updatedTweets = tweets.filter(tweet => tweet.id !== id);
-        setTweets(updatedTweets);
+    const handleDeleteTweet = (tweetId) => {
+        const updatedTweets = accountTweets.filter(tweet => tweet.postId !== tweetId);
+        setAccountTweets(updatedTweets);
     };
 
     useEffect(() => {
@@ -144,14 +143,14 @@ const ProfilePage = () => {
             <ProfileContainer>
                 <MyImage>
                     <HeaderImg src="../headerImage"/>
-                    <ProfileImg></ProfileImg>
+                    <ProfileImg />
                 </MyImage>
                 <UserInfo>
                     <UserName>{accountInfo.nickname}</UserName>
                     <UserId>@billy0904</UserId>
                     <Bio>망고시루 맛있겠다</Bio>
                     <RowContainer>
-                        <SlCalender size={15}/>
+                        <SlCalender size={15} />
                         <JoinDate>가입일: 2024년 5월</JoinDate>
                     </RowContainer>
                     <FollowContainer>
@@ -161,19 +160,19 @@ const ProfilePage = () => {
                         <Div>팔로워</Div>
                     </FollowContainer>
                 </UserInfo>
-                {tweets.map(
+                {accountTweets.map(tweet => (
                     <Tweet
-                        key={accountTweets.postId}
-                        id={accountTweets.postId}
-                        name={accountTweets.nickname}
-                        time={accountTweets.CreatedDate}
-                        content={accountTweets.content}
-                        onDelete={() => handleDeleteTweet(accountTweets.postId)}
+                        key={tweet.postId}
+                        id={tweet.postId}
+                        name={tweet.nickname}
+                        time={tweet.CreatedDate}
+                        content={tweet.content}
+                        onDelete={() => handleDeleteTweet(tweet.postId)}
                     />
-                )}
+                ))}
             </ProfileContainer>
         </MainContainer>
-    )
-}
+    );
+};
 
 export default ProfilePage;
