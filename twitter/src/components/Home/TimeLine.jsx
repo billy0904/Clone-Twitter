@@ -80,7 +80,7 @@ const TimeLine = () => {
         if (data) {
             setTweets(Array.isArray(data.posts) ? data.posts : []);
         }
-        setLoading(false);
+        //setLoading(false);
     };
 
     useEffect(() => {
